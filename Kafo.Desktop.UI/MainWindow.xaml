@@ -1,0 +1,28 @@
+﻿<Window x:Class="Kafo.Desktop.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Kafo.Desktop.UI"
+        xmlns:views="clr-namespace:Kafo.Desktop.UI.Views"
+        xmlns:vms="clr-namespace:Kafo.Desktop.UI.ViewModels"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        ui:WindowHelper.UseModernWindowStyle="True"
+        DataContext="{local:DISource Type=vms:MainWindowViewModel}"
+        mc:Ignorable="d"
+        Title="Kafo" Height="600" Width="1000"
+        MinWidth="400"
+        MinHeight="200"
+
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vms:LoginScreenViewModel}">
+            <views:LoginScreenView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vms:KafoMainViewModel}">
+            <views:KafoMainView />
+        </DataTemplate>
+    </Window.Resources>
+
+    <Frame Content="{Binding SelectedViewModel}" NavigationUIVisibility="Hidden" />
+</Window>

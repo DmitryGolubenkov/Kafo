@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  #kafo.server.api:
+  #  build:
+  #    context: .
+  #    dockerfile: Kafo.Server.API/Dockerfile
+  kafo.postgres:
+    image: postgres:14
+    ports:
+    - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: mypostgrespassword
+    volumes:
+        - postgresvolume:/var/lib/postgresql/data
+
+volumes:
+  postgresvolume:
