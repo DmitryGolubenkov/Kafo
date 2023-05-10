@@ -17,5 +17,4 @@ public class UpdateUserPasswordCommand
     {
         await _httpClient.PostAuthenticatedAsync("api/users/updateUserPassword", model);
     }
-
 }

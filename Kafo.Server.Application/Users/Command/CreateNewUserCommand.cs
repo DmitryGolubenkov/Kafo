@@ -26,6 +26,10 @@ public class CreateNewUserCommand
             || string.IsNullOrWhiteSpace(model.Password))
             throw new ArgumentException("Исходные данные некорректны");
 
+        // Проверяем, что такого пользователя ещё нет
+        if (_usersRepository.Where(x => x.Username == model.Username).FirstOrDefault() is not null)
+            throw new ArgumentException("Такой пользователь уже существует");
+
         var hashSalt = PasswordHashUtility.GenerateSaltedHash(model.Password);
         var newUser = new User()
         {

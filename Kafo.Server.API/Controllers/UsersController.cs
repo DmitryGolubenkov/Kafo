@@ -11,11 +11,18 @@ namespace Kafo.Server.API.Controllers;
 [ApiController]
 public class UsersController : ControllerBase
 {
+
+    #region Fields
+
     private readonly IAccessControl _accessControl;
     private readonly GetUsersQuery _getUsersQuery;
     private readonly CreateNewUserCommand _createNewUserCommand;
     private readonly UpdateUserDataCommand _updateUserDataCommand;
     private readonly UpdateUserPasswordCommand _updateUserPasswordCommand;
+
+    #endregion
+
+    #region Constructor
 
     public UsersController(IAccessControl accessControl,
         GetUsersQuery getUsersQuery,
@@ -30,6 +37,11 @@ public class UsersController : ControllerBase
         _updateUserDataCommand = updateUserDataCommand;
         _updateUserPasswordCommand = updateUserPasswordCommand;
     }
+
+    #endregion
+
+
+    #region Methods
 
     [HttpGet]
     [Route("getUsers")]
@@ -67,4 +79,6 @@ public class UsersController : ControllerBase
 
         return Ok();
     }
+
+    #endregion
 }

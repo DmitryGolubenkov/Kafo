@@ -73,4 +73,11 @@ public partial class App
     {
         MessageBox.Show(args.ExceptionObject.ToString());
     }
+
+    private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+    {
+        MessageBox.Show("An unhandled exception just occurred: " + e.Exception.Message + "\n" + e.Exception.StackTrace, e.Exception.Message, MessageBoxButton.OK, MessageBoxImage.Error);
+        e.Handled = true;
+    }
+
 }

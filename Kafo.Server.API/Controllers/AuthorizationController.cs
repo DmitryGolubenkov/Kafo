@@ -13,16 +13,26 @@ namespace Kafo.Server.API.Controllers;
 [ApiController]
 public class AuthorizationController : ControllerBase
 {
+    #region Fields
+
     private readonly AuthorizeUserCommand _authorizeUserCommand;
     private readonly IRepository<User> _userRepository;
     private readonly AuthOptions _authOptions;
+
+    #endregion
+
+    #region Constructor
 
     public AuthorizationController(AuthorizeUserCommand authorizeUserCommand)
     {
         _authorizeUserCommand = authorizeUserCommand;
     }
 
-    
+    #endregion
+
+
+    #region Methods
+
     /// <summary>
     /// Маршрут API для авторизации пользователя
     /// </summary>
@@ -39,4 +49,6 @@ public class AuthorizationController : ControllerBase
         
             return Ok(result);
     }
+
+    #endregion
 }

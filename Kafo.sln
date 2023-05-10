@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kafo.Desktop.UI", "Kafo.Desktop.UI\Kafo.Desktop.UI.csproj", "{031CA438-86F0-43F9-8BC1-A4C17D1B9F6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kafo.Desktop.UI", "Kafo.Desktop.UI\Kafo.Desktop.UI.csproj", "{031CA438-86F0-43F9-8BC1-A4C17D1B9F6F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Desktop", "Desktop", "{73FDE1E4-4A05-412E-AF7B-4E687D626BAD}"
 EndProject
@@ -11,19 +11,24 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{9DE606
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{6D5EFC2F-C0B3-42EF-BC91-DB7FE1133224}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kafo.Server.API", "Kafo.Server.API\Kafo.Server.API.csproj", "{CF6682A1-1A57-42E2-B84B-94A95AC0C4F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kafo.Server.API", "Kafo.Server.API\Kafo.Server.API.csproj", "{CF6682A1-1A57-42E2-B84B-94A95AC0C4F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kafo.Server.Persistence", "Kafo.Server.Persistence\Kafo.Server.Persistence.csproj", "{ACDFBA9F-4E67-42C2-90A1-D767F3409CA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kafo.Server.Persistence", "Kafo.Server.Persistence\Kafo.Server.Persistence.csproj", "{ACDFBA9F-4E67-42C2-90A1-D767F3409CA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kafo.Domain", "Kafo.Domain\Kafo.Domain.csproj", "{6112A4E0-C475-4365-84E7-FF99B17DFEDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kafo.Domain", "Kafo.Domain\Kafo.Domain.csproj", "{6112A4E0-C475-4365-84E7-FF99B17DFEDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kafo.Desktop.Infrastructure", "Kafo.Desktop.Infrastructure\Kafo.Desktop.Infrastructure.csproj", "{C25A15C6-CB91-41C2-96A7-3BD168BA0C50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kafo.Desktop.Infrastructure", "Kafo.Desktop.Infrastructure\Kafo.Desktop.Infrastructure.csproj", "{C25A15C6-CB91-41C2-96A7-3BD168BA0C50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kafo.Application", "Kafo.Application\Kafo.Application.csproj", "{91A070A8-4143-4B47-AB91-30CE2E58569E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kafo.Application", "Kafo.Application\Kafo.Application.csproj", "{91A070A8-4143-4B47-AB91-30CE2E58569E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kafo.Desktop.AppLayer", "Kafo.Desktop.AppLayer\Kafo.Desktop.AppLayer.csproj", "{9D70D601-48DA-4DCD-A44D-E39C11622C3A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kafo.Desktop.AppLayer", "Kafo.Desktop.AppLayer\Kafo.Desktop.AppLayer.csproj", "{9D70D601-48DA-4DCD-A44D-E39C11622C3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kafo.Server.Application", "Kafo.Server.Application\Kafo.Server.Application.csproj", "{D9D469B0-6502-4DDA-AFA4-62B423CD0DF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kafo.Server.Application", "Kafo.Server.Application\Kafo.Server.Application.csproj", "{D9D469B0-6502-4DDA-AFA4-62B423CD0DF4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{BE040350-E40B-4CC5-8A3F-1ECA7C421154}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,6 +1,8 @@
-﻿using System.Security;
+﻿using System;
+using System.Security;
 
 namespace Kafo.Desktop.UI.Models;
+
 public class NewUserModel
 {
     /// <summary>
@@ -18,10 +20,14 @@ public class NewUserModel
     /// </summary>
     public SecureString? PasswordRepeat { get; set; }
 
-
     /// <summary>
     /// Номер телефона
     /// </summary>
     public string? PhoneNumber { get; set; }
 
+    internal void Clear()
+    {
+        Username = null;
+        PhoneNumber = null;
+    }
 }

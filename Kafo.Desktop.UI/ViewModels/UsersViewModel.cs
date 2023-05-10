@@ -31,14 +31,26 @@ public partial class UsersViewModel : ObservableObject
 
     partial void OnNewPasswordRepeatChanged(SecureString value)
     {
-        PasswordsMatch = NewPassword.ToUnsecureString() == NewPasswordRepeat.ToUnsecureString();
+        PasswordsInvalid = NewPassword.ToUnsecureString() != NewPasswordRepeat.ToUnsecureString();
     }
 
-    [ObservableProperty] private bool passwordsMatch;
+    [ObservableProperty] private bool passwordsInvalid;
 
     // New User
-    [ObservableProperty] private NewUserModel _newUserModel;
-    
+    [ObservableProperty] private NewUserModel _newUserModel = new NewUserModel();
+
+    partial void OnNewUserModelChanged(NewUserModel? oldValue, NewUserModel newValue)
+    {
+        // Игнорируем изменения, если пароли не менялись
+        if (oldValue.Password == newValue.Password && oldValue.PasswordRepeat == newValue.PasswordRepeat)
+            return;
+
+        NewUserPasswordsInvalid = newValue.Password.ToUnsecureString() != newValue.PasswordRepeat.ToUnsecureString();
+    }
+
+    [ObservableProperty]
+    private bool newUserPasswordsInvalid;
+
     #endregion
 
 
@@ -76,10 +88,14 @@ public partial class UsersViewModel : ObservableObject
         UsersList = (await _getUsersQuery.Execute()).ToList();
     }
 
+    /// <summary>
+    /// Вызывается при загрузке UI элемента
+    /// </summary>
     [RelayCommand]
     public async Task ControlLoaded()
     {
-        await RefreshUsersList();
+        if (UsersList is null)
+            await RefreshUsersList();
     }
 
     [RelayCommand]
@@ -91,6 +107,10 @@ public partial class UsersViewModel : ObservableObject
         await _updateUserCommand.Execute(SelectedUser);
     }
 
+    /// <summary>
+    /// Сохраняет новый пароль
+    /// </summary>
+    /// <returns></returns>
     [RelayCommand]
     public async Task SaveNewPassword()
     {
@@ -121,5 +141,10 @@ public partial class UsersViewModel : ObservableObject
         };
 
         await _createNewUserCommand.Execute(newUser);
+
+        // После успешного создания нового пользователя обнуляем данные
+        NewUserModel.Clear();
+        OnPropertyChanged(nameof(NewUserModel));
+        await RefreshUsersList();
     }
 }

@@ -1,14 +1,15 @@
-﻿<UserControl x:Class="Kafo.Desktop.UI.Views.UsersView"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-      xmlns:local="clr-namespace:Kafo.Desktop.UI.Views"
-      xmlns:vms="clr-namespace:Kafo.Desktop.UI.ViewModels"
-      DataContext="{root:DISource Type=vms:UsersViewModel}"
-      xmlns:root="clr-namespace:Kafo.Desktop.UI"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      mc:Ignorable="d">
+﻿<UserControl
+    x:Class="Kafo.Desktop.UI.Views.UsersView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:Kafo.Desktop.UI.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:root="clr-namespace:Kafo.Desktop.UI"
+    xmlns:vms="clr-namespace:Kafo.Desktop.UI.ViewModels"
+    DataContext="{root:DISource Type=vms:UsersViewModel}"
+    mc:Ignorable="d">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
     </UserControl.Resources>
@@ -21,41 +22,41 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
 
-                <ListBox 
-            MinWidth="160"
-            SelectedItem="{Binding SelectedUser}"
-                 ItemsSource="{Binding UsersList}"
-                 DockPanel.Dock="Left">
+                <ListBox
+                    MinWidth="160"
+                    DockPanel.Dock="Left"
+                    ItemsSource="{Binding UsersList}"
+                    SelectedItem="{Binding SelectedUser}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="5">
-                                <TextBlock FontSize="16" Text="{Binding Path=Username}"  />
+                                <TextBlock FontSize="16" Text="{Binding Path=Username}" />
                                 <TextBlock FontSize="16" Text="{Binding Path=PhoneNumber}" />
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
                 <StackPanel Margin="16" Visibility="{Binding Path=IsUserSelected, Converter={StaticResource BoolToVis}}">
-                    <WrapPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <WrapPanel Margin="0,10,0,0" Orientation="Horizontal">
                         <TextBlock Width="130">Имя пользователя</TextBlock>
-                        <TextBox Width="200" Text="{Binding Path=SelectedUser.Username}"></TextBox>
+                        <TextBox Width="200" Text="{Binding Path=SelectedUser.Username}" />
                     </WrapPanel>
-                    <WrapPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <WrapPanel Margin="0,10,0,0" Orientation="Horizontal">
                         <TextBlock Width="130">Номер телефона</TextBlock>
-                        <TextBox Width="200" Text="{Binding Path=SelectedUser.PhoneNumber}"></TextBox>
+                        <TextBox Width="200" Text="{Binding Path=SelectedUser.PhoneNumber}" />
                     </WrapPanel>
                     <Expander Header="Пароль">
-                        <Border BorderThickness="1" BorderBrush="LightGray">
+                        <Border BorderBrush="LightGray" BorderThickness="1">
                             <StackPanel Margin="10">
-                                <WrapPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                <WrapPanel Margin="0,10,0,0" Orientation="Horizontal">
                                     <TextBlock Width="130">Новый пароль</TextBlock>
-                                    <PasswordBox Width="200" PasswordChanged="NewPasswordBox_PasswordChanged"></PasswordBox>
+                                    <PasswordBox Width="200" PasswordChanged="NewPasswordBox_PasswordChanged" />
                                 </WrapPanel>
-                                <WrapPanel Orientation="Horizontal" Margin="0,10,0,0">
-                                    <TextBlock Width="130" >Повторите пароль</TextBlock>
-                                    <PasswordBox Width="200" PasswordChanged="NewPasswordRepeatBox_PasswordChanged"></PasswordBox>
+                                <WrapPanel Margin="0,10,0,0" Orientation="Horizontal">
+                                    <TextBlock Width="130">Повторите пароль</TextBlock>
+                                    <PasswordBox Width="200" PasswordChanged="NewPasswordRepeatBox_PasswordChanged" />
                                 </WrapPanel>
-                                <TextBlock Visibility="{Binding Path=PasswordsMatch, Converter={StaticResource BoolToVis}}">Пароли должны совпадать</TextBlock>
+                                <TextBlock Visibility="{Binding Path=PasswordsInvalid, Converter={StaticResource BoolToVis}}">Пароли должны совпадать</TextBlock>
                                 <Button Margin="0,10,0,0" Command="{Binding SaveNewPasswordCommand}">Обновить пароль</Button>
                             </StackPanel>
                         </Border>
@@ -66,7 +67,37 @@
             </DockPanel>
         </TabItem>
         <TabItem Header="Добавление нового пользователя">
-            
+            <StackPanel Margin="16" Orientation="Vertical">
+                <WrapPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <TextBlock Width="200">Имя нового пользователя</TextBlock>
+                    <TextBox Width="200" Text="{Binding Path=NewUserModel.Username}" />
+                </WrapPanel>
+                <WrapPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <TextBlock Width="200">Номер телефона</TextBlock>
+                    <TextBox Width="200" Text="{Binding Path=NewUserModel.PhoneNumber}" />
+                </WrapPanel>
+                <StackPanel>
+                    <WrapPanel Margin="0,10,0,0" Orientation="Horizontal">
+                        <TextBlock Width="200">Новый пароль</TextBlock>
+                        <PasswordBox
+                            x:Name="PasswordBox1"
+                            Width="200"
+                            PasswordChanged="NewUserPasswordBox_PasswordChanged" />
+                    </WrapPanel>
+                    <WrapPanel Margin="0,10,0,0" Orientation="Horizontal">
+                        <TextBlock Width="200">Повторите пароль</TextBlock>
+                        <PasswordBox
+                            x:Name="PasswordBox2"
+                            Width="200"
+                            PasswordChanged="NewUserPasswordRepeatBox_PasswordChanged" />
+                    </WrapPanel>
+                    <TextBlock Visibility="{Binding Path=NewUserPasswordsInvalid, Converter={StaticResource BoolToVis}}">Пароли должны совпадать</TextBlock>
+                    <Button Margin="0,10,0,0" Command="{Binding SaveNewUserCommand}">
+                        Сохранить нового пользователя
+                    </Button>
+                </StackPanel>
+
+            </StackPanel>
         </TabItem>
     </TabControl>
 </UserControl>

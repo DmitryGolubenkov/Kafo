@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Kafo.Desktop.UI.Views;
@@ -33,5 +34,4 @@ public partial class UsersView : UserControl
         if (this.DataContext != null)
         { ((dynamic)this.DataContext).NewUserModel.PasswordRepeat = ((PasswordBox)sender).SecurePassword; }
     }
-
 }
