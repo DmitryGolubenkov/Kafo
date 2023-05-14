@@ -9,4 +9,8 @@ public class CoffeeMachineModelData
     public string ManufacturerName { get; set; }
     public string Model { get; set; }
 
+    public override string ToString()
+    {
+        return $"{ManufacturerName} {Model}";
+    }
 }

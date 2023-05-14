@@ -21,4 +21,8 @@ public class UserLoginResultModel
     /// </summary>
     public string? JwtToken { get; set; }
 
+    /// <summary>
+    /// Номер телефона
+    /// </summary>
+    public string PhoneNumber { get; set; }
 }

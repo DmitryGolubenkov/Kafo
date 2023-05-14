@@ -7,9 +7,11 @@ public class Order : EntityBase
     /// <summary>
     /// Номер заказа
     /// </summary>
-    public int? OrderNumber { get; set; }
+    public int OrderNumber { get; set; }
 
-    // ФИО клиента
+    /// <summary>
+    ///  ФИО клиента
+    /// </summary>
     public string ClientName { get; set; }
 
     /// <summary>
@@ -38,9 +40,14 @@ public class Order : EntityBase
     public CoffeeMachineModel CoffeeMachine { get; set; }
 
     /// <summary>
+    /// ID кофемашины
+    /// </summary>
+    public Guid CoffeeMachineId { get; set; }
+    
+    /// <summary>
     /// Внешний вид
     /// </summary>
-    public Appearance Appearance { get; set; }
+    public string Appearance { get; set; }
 
     /// <summary>
     /// Заявленная неисправность

@@ -1,13 +1,18 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Kafo.Desktop.AppLayer.Users.Commands;
 using Kafo.Desktop.AppLayer.Users.Queries;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Security;
 using System.Threading.Tasks;
+using System.Windows;
 using Kafo.Application.Models.Users;
+using Kafo.Desktop.Infrastructure.InvoiceGenerator.Models;
 using Kafo.Desktop.UI.Extensions;
 using Kafo.Desktop.UI.Models;
 
@@ -130,7 +135,7 @@ public partial class UsersViewModel : ObservableObject
         if (string.IsNullOrWhiteSpace(NewUserModel.Username) || string.IsNullOrWhiteSpace(NewUserModel.PhoneNumber))
             return;
 
-        if (NewPassword != NewPasswordRepeat)
+        if (NewPassword.ToUnsecureString() != NewPasswordRepeat.ToUnsecureString())
             return;
 
         var newUser = new CreateNewUserInputModel()

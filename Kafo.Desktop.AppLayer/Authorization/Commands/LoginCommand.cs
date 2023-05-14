@@ -33,7 +33,7 @@ public class LoginCommand
             return false;
 
         var resultModel = await response.Content.ReadFromJsonAsync<UserLoginResultModel>();
-        _userInfo.StartSession((Guid)resultModel.UserId, resultModel.Username, resultModel.JwtToken);
+        _userInfo.StartSession((Guid)resultModel.UserId, resultModel.Username, resultModel.JwtToken, resultModel.PhoneNumber);
 
         return true;
     }

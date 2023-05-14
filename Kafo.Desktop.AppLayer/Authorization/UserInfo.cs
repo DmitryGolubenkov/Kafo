@@ -16,6 +16,11 @@ public class UserInfo
     public string? JwtToken { get; private set; }
     
     /// <summary>
+    /// Номер телефона
+    /// </summary>
+    public string? PhoneNumber { get; private set; }
+
+    /// <summary>
     /// Вход выполнен?
     /// </summary>
     public bool IsLoggedIn { get; private set; }
@@ -28,12 +33,13 @@ public class UserInfo
     /// <summary>
     /// Начинает сессию пользователя
     /// </summary>
-    public void StartSession(Guid userId, string username, string jwtToken)
+    public void StartSession(Guid userId, string username, string jwtToken, string phoneNumber)
     {
         IsLoggedIn = true;
         Username = username;
         JwtToken = jwtToken;
         UserId = userId;
+        PhoneNumber = phoneNumber;
     }
 
     /// <summary>

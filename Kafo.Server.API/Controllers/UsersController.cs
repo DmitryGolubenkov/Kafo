@@ -19,6 +19,7 @@ public class UsersController : ControllerBase
     private readonly CreateNewUserCommand _createNewUserCommand;
     private readonly UpdateUserDataCommand _updateUserDataCommand;
     private readonly UpdateUserPasswordCommand _updateUserPasswordCommand;
+    private readonly GetPhoneNumbersQuery _getPhoneNumbersQuery;
 
     #endregion
 
@@ -28,7 +29,8 @@ public class UsersController : ControllerBase
         GetUsersQuery getUsersQuery,
         CreateNewUserCommand createNewUserCommand,
         UpdateUserDataCommand updateUserDataCommand,
-        UpdateUserPasswordCommand updateUserPasswordCommand
+        UpdateUserPasswordCommand updateUserPasswordCommand,
+        GetPhoneNumbersQuery getPhoneNumbersQuery
     )
     {
         _accessControl = accessControl;
@@ -36,6 +38,7 @@ public class UsersController : ControllerBase
         _createNewUserCommand = createNewUserCommand;
         _updateUserDataCommand = updateUserDataCommand;
         _updateUserPasswordCommand = updateUserPasswordCommand;
+        _getPhoneNumbersQuery = getPhoneNumbersQuery;
     }
 
     #endregion
@@ -51,6 +54,13 @@ public class UsersController : ControllerBase
             return Unauthorized();
 
         return await _getUsersQuery.Execute();
+    }
+
+    [HttpGet]
+    [Route("getPhoneNumbers")]
+    public async Task<List<string>> GetPhoneNumbers()
+    {
+        return await _getPhoneNumbersQuery.Execute();
     }
 
     [HttpPost]

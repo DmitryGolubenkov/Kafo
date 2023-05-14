@@ -6,4 +6,18 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Kafo.Application\Kafo.Application.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="SharpDocx" Version="2.4.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="InvoiceGenerator\templates\Выписка.cs.docx">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

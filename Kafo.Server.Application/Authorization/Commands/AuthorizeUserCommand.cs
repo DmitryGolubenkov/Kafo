@@ -42,6 +42,7 @@ public class AuthorizeUserCommand
             IsSuccessful = true,
             Username = user.Username,
             UserId = user.Id,
+            PhoneNumber = user.PhoneNumber,
             JwtToken = JwtGenerator.CreateEncodedToken(new JwtData()
             {
                 UserId = user.Id,

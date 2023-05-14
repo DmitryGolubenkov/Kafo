@@ -57,6 +57,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("Default"));
+    
 });
 //builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
@@ -96,13 +97,13 @@ builder.Services.AddTransient<IAccessControl, AccessControl>();
 var app = builder.Build();
 
 #region Migrate DB
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 // Persistence - Migrate database
 using (var scope = app.Services.CreateScope())
 {
     var dataContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     dataContext.Database.Migrate();
-
     var createFirstUserCommand = scope.ServiceProvider.GetRequiredService<CreateFirstUserCommand>();
     await createFirstUserCommand.Execute();
 

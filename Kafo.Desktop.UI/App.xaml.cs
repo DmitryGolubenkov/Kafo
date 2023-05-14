@@ -7,6 +7,8 @@ using CommunityToolkit.Mvvm.Messaging;
 using Kafo.Desktop.AppLayer.Authorization;
 using Kafo.Desktop.AppLayer.Utilities;
 using Kafo.Desktop.AppLayer.Utilities.Models;
+using Kafo.Desktop.Infrastructure.InvoiceGenerator;
+using Kafo.Desktop.Infrastructure.InvoiceGenerator.Models;
 using Kafo.Desktop.UI.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
@@ -31,6 +33,7 @@ public partial class App
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
         Configuration = builder.Build();
+
 
         var containerBuilder = new ContainerBuilder();
         ConfigureServices(containerBuilder);
@@ -63,10 +66,21 @@ public partial class App
         builder.RegisterType<UserInfo>().SingleInstance();
         builder.RegisterType<AppNavigator>().SingleInstance();
         builder.RegisterType<StrongReferenceMessenger>().As<IMessenger>().SingleInstance();
+        builder.RegisterType<InvoiceGeneratorService>();
+        builder.RegisterType<InvoiceDocxModelFactory>();
 
         builder.RegisterType<AuthenticatedHttpClient>()
             .AsSelf()
-            .SingleInstance();    }
+            .SingleInstance();
+
+
+        #region Options
+
+        builder.Register(p => Configuration.GetSection("InvoiceGenerator").Get<InvoiceGeneratorOptions>())
+            .SingleInstance();
+
+        #endregion
+    }
 
 
     private void OnException(object sender, UnhandledExceptionEventArgs args)
@@ -74,10 +88,11 @@ public partial class App
         MessageBox.Show(args.ExceptionObject.ToString());
     }
 
-    private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+    private void Application_DispatcherUnhandledException(object sender,
+        System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
     {
-        MessageBox.Show("An unhandled exception just occurred: " + e.Exception.Message + "\n" + e.Exception.StackTrace, e.Exception.Message, MessageBoxButton.OK, MessageBoxImage.Error);
+        MessageBox.Show("An unhandled exception just occurred: " + e.Exception.Message + "\n" + e.Exception.StackTrace,
+            e.Exception.Message, MessageBoxButton.OK, MessageBoxImage.Error);
         e.Handled = true;
     }
-
 }
