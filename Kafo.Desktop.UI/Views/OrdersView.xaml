@@ -33,7 +33,7 @@
                             <DataTemplate>
                                 <StackPanel Margin="5">
                                     <TextBlock FontSize="16" Text="{Binding Path=OrderNumber}" />
-                                    <TextBlock FontSize="16" Text="{Binding Path=AcceptanceDate}" />
+                                    <TextBlock FontSize="16" Text="{Binding Path=AcceptanceDateString}" />
                                     <TextBlock FontSize="16" Text="{Binding Path=SerialNumber}" />
                                 </StackPanel>
                             </DataTemplate>

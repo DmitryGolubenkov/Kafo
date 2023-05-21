@@ -79,7 +79,7 @@ public partial class OrdersViewModel : ObservableObject
     [RelayCommand]
     public async Task LoadData()
     {
-        Orders = await _getAllOrdersQuery.Execute();
+        Orders = (await _getAllOrdersQuery.Execute()).OrderByDescending(x=>x.AcceptanceDate).ToList();
         CoffeeMachines = await _getCoffeeMachinesQuery.Execute();
         PhoneNumbers = await _getPhoneNumbersQuery.Execute();
 
@@ -98,8 +98,6 @@ public partial class OrdersViewModel : ObservableObject
     [RelayCommand]
     public async Task UpdateOrder()
     {
-
-
         await _updateOrderCommand.Execute(SelectedOrder);
     }
 

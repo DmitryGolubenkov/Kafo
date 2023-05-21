@@ -58,6 +58,7 @@ public partial class NewOrderViewModel : ObservableObject
     public async Task CreateNewOrder()
     {
         await _createNewOrderCommand.Execute(NewOrder);
-        _messenger.Send<NewOrderCreatedEvent>();
+
+        await Task.Run(() => _messenger.Send<NewOrderCreatedEvent>());
     }
 }

@@ -59,6 +59,9 @@ public class OrderModel
     /// </summary>
     public DateTime AcceptanceDate { get; set; }
 
+
+    public string AcceptanceDateString { get => AcceptanceDate.ToUniversalTime().ToString("dd.MM.yyyy HH:mm"); }
+
     /// <summary>
     /// Время завершения заказа
     /// </summary>

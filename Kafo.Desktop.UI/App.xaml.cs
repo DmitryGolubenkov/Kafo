@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Net.Http;
+using System.Threading;
 using System.Windows;
 using Autofac;
 using CommunityToolkit.Mvvm.Messaging;
@@ -40,6 +42,10 @@ public partial class App
 
         ServiceProvider = containerBuilder.Build();
         DISource.Resolver = ServiceProvider.Resolve;
+
+        CultureInfo ci = CultureInfo.InstalledUICulture;
+        Thread.CurrentThread.CurrentCulture = ci;
+
 
         var mainWindow = ServiceProvider.Resolve<MainWindow>();
         mainWindow.Show();
