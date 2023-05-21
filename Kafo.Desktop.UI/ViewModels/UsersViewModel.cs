@@ -1,18 +1,13 @@
-﻿using System;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Kafo.Desktop.AppLayer.Users.Commands;
 using Kafo.Desktop.AppLayer.Users.Queries;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Security;
 using System.Threading.Tasks;
-using System.Windows;
 using Kafo.Application.Models.Users;
-using Kafo.Desktop.Infrastructure.InvoiceGenerator.Models;
 using Kafo.Desktop.UI.Extensions;
 using Kafo.Desktop.UI.Models;
 
@@ -25,7 +20,7 @@ public partial class UsersViewModel : ObservableObject
     // Users
     [ObservableProperty] private List<UserModel> _usersList;
 
-    [ObservableProperty] private UserModel _selectedUser;
+    [ObservableProperty] private UserModel? _selectedUser;
 
     [ObservableProperty] private bool _isUserSelected;
 
@@ -72,6 +67,7 @@ public partial class UsersViewModel : ObservableObject
     private readonly UpdateUserCommand _updateUserCommand;
     private readonly UpdateUserPasswordCommand _updateUserPasswordCommand;
     private readonly CreateNewUserCommand _createNewUserCommand;
+    private readonly DeleteUserCommand _deleteUserCommand;
 
     #endregion
 
@@ -79,12 +75,14 @@ public partial class UsersViewModel : ObservableObject
         UpdateUserCommand updateUserCommand,
         UpdateUserPasswordCommand updateUserPasswordCommand,
         CreateNewUserCommand createNewUserCommand,
+        DeleteUserCommand deleteUserCommand,
         IMessenger messenger)
     {
         _getUsersQuery = getUsersQuery;
         _updateUserCommand = updateUserCommand;
         _updateUserPasswordCommand = updateUserPasswordCommand;
         _createNewUserCommand = createNewUserCommand;
+        _deleteUserCommand = deleteUserCommand;
         _messenger = messenger;
     }
 
@@ -150,6 +148,21 @@ public partial class UsersViewModel : ObservableObject
         // После успешного создания нового пользователя обнуляем данные
         NewUserModel.Clear();
         OnPropertyChanged(nameof(NewUserModel));
+        await RefreshUsersList();
+    }
+
+    [RelayCommand]
+    public async Task DeleteUser()
+    {
+        if(SelectedUser is null)
+            return;
+
+        await _deleteUserCommand.Execute (new DeleteUserModel() { Id = SelectedUser.Id });
+
+        UsersList.Remove(SelectedUser);
+        OnPropertyChanged(nameof(UsersList));
+        SelectedUser = null;
+
         await RefreshUsersList();
     }
 }

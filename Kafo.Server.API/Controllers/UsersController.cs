@@ -20,6 +20,7 @@ public class UsersController : ControllerBase
     private readonly UpdateUserDataCommand _updateUserDataCommand;
     private readonly UpdateUserPasswordCommand _updateUserPasswordCommand;
     private readonly GetPhoneNumbersQuery _getPhoneNumbersQuery;
+    private readonly DeleteUserCommand _deleteUserCommand;
 
     #endregion
 
@@ -30,8 +31,8 @@ public class UsersController : ControllerBase
         CreateNewUserCommand createNewUserCommand,
         UpdateUserDataCommand updateUserDataCommand,
         UpdateUserPasswordCommand updateUserPasswordCommand,
-        GetPhoneNumbersQuery getPhoneNumbersQuery
-    )
+        GetPhoneNumbersQuery getPhoneNumbersQuery,
+        DeleteUserCommand deleteUserCommand)
     {
         _accessControl = accessControl;
         _getUsersQuery = getUsersQuery;
@@ -39,6 +40,7 @@ public class UsersController : ControllerBase
         _updateUserDataCommand = updateUserDataCommand;
         _updateUserPasswordCommand = updateUserPasswordCommand;
         _getPhoneNumbersQuery = getPhoneNumbersQuery;
+        _deleteUserCommand = deleteUserCommand;
     }
 
     #endregion
@@ -89,6 +91,16 @@ public class UsersController : ControllerBase
 
         return Ok();
     }
+
+    [HttpPost]
+    [Route("deleteUser")]
+    public async Task<ActionResult> Execute(DeleteUserModel deleteUserModel)
+    {
+        await _deleteUserCommand.Execute(deleteUserModel.Id);
+
+        return Ok();
+    }
+
 
     #endregion
 }

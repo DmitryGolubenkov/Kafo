@@ -62,7 +62,18 @@
                         </Border>
                     </Expander>
 
-                    <Button Margin="0,10,0,0" Command="{Binding UpdateUserDataCommand}">Сохранить изменения</Button>
+                    <Button
+                        Margin="0,10,0,0"
+                        Padding="10"
+                        Command="{Binding UpdateUserDataCommand}">
+                        Сохранить изменения
+                    </Button>
+                    <Button
+                        Margin="0,10,0,0"
+                        Command="{Binding DeleteUserCommand}"
+                        Foreground="Red">
+                        Удалить пользователя
+                    </Button>
                 </StackPanel>
             </DockPanel>
         </TabItem>

@@ -22,7 +22,11 @@ public partial class OrdersViewModel : ObservableObject
 {
     #region Constructor
 
-    public OrdersViewModel(GetAllOrdersQuery getAllOrdersQuery, UpdateOrderCommand updateOrderCommand, GetCoffeeMachinesQuery getCoffeeMachinesQuery, GetPhoneNumbersQuery getPhoneNumbersQuery, IMessenger messenger, InvoiceGeneratorService invoiceGeneratorService, InvoiceGeneratorOptions invoiceGeneratorOptions)
+    public OrdersViewModel(GetAllOrdersQuery getAllOrdersQuery, 
+        UpdateOrderCommand updateOrderCommand, 
+        GetCoffeeMachinesQuery getCoffeeMachinesQuery, 
+        GetPhoneNumbersQuery getPhoneNumbersQuery, 
+        IMessenger messenger, InvoiceGeneratorService invoiceGeneratorService, InvoiceGeneratorOptions invoiceGeneratorOptions, DeleteOrderCommand deleteOrderCommand)
     {
         _getAllOrdersQuery = getAllOrdersQuery;
         _updateOrderCommand = updateOrderCommand;
@@ -31,7 +35,7 @@ public partial class OrdersViewModel : ObservableObject
         _messenger = messenger;
         _invoiceGeneratorService = invoiceGeneratorService;
         _invoiceGeneratorOptions = invoiceGeneratorOptions;
-
+        _deleteOrderCommand = deleteOrderCommand;
         _messenger.Register<NewOrderCreatedEvent>(this, (recipient, message) => LoadData().Wait());
     }
 
@@ -46,7 +50,8 @@ public partial class OrdersViewModel : ObservableObject
     private readonly IMessenger _messenger;
     private readonly InvoiceGeneratorService _invoiceGeneratorService;
     private readonly InvoiceGeneratorOptions _invoiceGeneratorOptions;
-    
+    private readonly DeleteOrderCommand _deleteOrderCommand;
+
     #endregion
 
     #region ObservableProperties
@@ -59,7 +64,7 @@ public partial class OrdersViewModel : ObservableObject
     {
         OrderSelected = SelectedOrder is not null;
     }
-    
+
     [ObservableProperty]
     private bool _orderSelected;
     [ObservableProperty]
@@ -104,8 +109,7 @@ public partial class OrdersViewModel : ObservableObject
         await _invoiceGeneratorService.GenerateDocument(SelectedOrder, null);
     }
 
-    #endregion
-    
+
     [RelayCommand]
     private void OpenExportFolder()
     {
@@ -133,4 +137,23 @@ public partial class OrdersViewModel : ObservableObject
         }
     }
 
+    [RelayCommand]
+    public async Task DeleteOrder() 
+    {
+        if (SelectedOrder is null)
+            return;
+
+        await _deleteOrderCommand.Execute(new DeleteOrderModel()
+        {
+            Id = SelectedOrder.Id
+        });
+
+        Orders.Remove(SelectedOrder);
+        OnPropertyChanged(nameof(Orders));
+        SelectedOrder = null;
+
+        await LoadData();
+    }
+
+    #endregion
 }

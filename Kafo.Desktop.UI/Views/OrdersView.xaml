@@ -7,8 +7,8 @@
     xmlns:local="clr-namespace:Kafo.Desktop.UI.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:root="clr-namespace:Kafo.Desktop.UI"
-    xmlns:vms="clr-namespace:Kafo.Desktop.UI.ViewModels"
     xmlns:views="clr-namespace:Kafo.Desktop.UI.Views"
+    xmlns:vms="clr-namespace:Kafo.Desktop.UI.ViewModels"
     DataContext="{root:DISource Type=vms:OrdersViewModel}"
     mc:Ignorable="d">
     <UserControl.Resources>
@@ -40,10 +40,10 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
 
-                    <ScrollViewer DockPanel.Dock="Right"
-                                  Visibility="{Binding Path=OrderSelected, Converter={StaticResource BoolToVis}}">
+                    <ScrollViewer DockPanel.Dock="Right" Visibility="{Binding Path=OrderSelected, Converter={StaticResource BoolToVis}}">
                         <Grid>
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -78,15 +78,14 @@
                                         </Style>
                                     </StackPanel.Resources>
                                     <WrapPanel Orientation="Horizontal">
-                                        <TextBlock>Номер заказа: </TextBlock>
-                                        <TextBlock Text="{Binding Path=SelectedObject.OrderNumber}"></TextBlock>
+                                        <TextBlock>Номер заказа:</TextBlock>
+                                        <TextBlock Text="{Binding Path=SelectedObject.OrderNumber}" />
                                     </WrapPanel>
 
 
                                     <WrapPanel Orientation="Horizontal">
                                         <TextBlock>Номер телефона мастера</TextBlock>
-                                        <ComboBox ItemsSource="{Binding PhoneNumbers}"
-                                                  Text="{Binding SelectedOrder.EmployeePhoneNumber}" />
+                                        <ComboBox ItemsSource="{Binding PhoneNumbers}" Text="{Binding SelectedOrder.EmployeePhoneNumber}" />
                                     </WrapPanel>
 
                                     <WrapPanel Orientation="Horizontal">
@@ -154,30 +153,19 @@
                                                         </Style>
                                                     </WrapPanel.Resources>
 
-                                                    <CheckBox Content="Поддон"
-                                                              IsChecked="{Binding SelectedOrder.Pallet}" />
-                                                    <CheckBox Content="Фильтр"
-                                                              IsChecked="{Binding SelectedOrder.Filter}" />
-                                                    <CheckBox Content="Бункер для воды"
-                                                              IsChecked="{Binding SelectedOrder.WaterTank}" />
-                                                    <CheckBox Content="Крышка кофемашины"
-                                                              IsChecked="{Binding SelectedOrder.CoffeeLid}" />
-                                                    <CheckBox Content="Лоток (Отходы)"
-                                                              IsChecked="{Binding SelectedOrder.WasteTray}" />
-                                                    <CheckBox Content="Шланг каппучинатора"
-                                                              IsChecked="{Binding SelectedOrder.CappuccinatorHose}" />
-                                                    <CheckBox Content="Сетевой шнур"
-                                                              IsChecked="{Binding SelectedOrder.PowerCord}" />
-                                                    <CheckBox Content="Молочник"
-                                                              IsChecked="{Binding SelectedOrder.MilkKettle}" />
-                                                    <CheckBox Content="Насадка (горячая вода)"
-                                                              IsChecked="{Binding SelectedOrder.HotWaterNozzle}" />
-                                                    <CheckBox Content="Насадка (каппучинатор)"
-                                                              IsChecked="{Binding SelectedOrder.CappuccinatorNozzle}" />
+                                                    <CheckBox Content="Поддон" IsChecked="{Binding SelectedOrder.Pallet}" />
+                                                    <CheckBox Content="Фильтр" IsChecked="{Binding SelectedOrder.Filter}" />
+                                                    <CheckBox Content="Бункер для воды" IsChecked="{Binding SelectedOrder.WaterTank}" />
+                                                    <CheckBox Content="Крышка кофемашины" IsChecked="{Binding SelectedOrder.CoffeeLid}" />
+                                                    <CheckBox Content="Лоток (Отходы)" IsChecked="{Binding SelectedOrder.WasteTray}" />
+                                                    <CheckBox Content="Шланг каппучинатора" IsChecked="{Binding SelectedOrder.CappuccinatorHose}" />
+                                                    <CheckBox Content="Сетевой шнур" IsChecked="{Binding SelectedOrder.PowerCord}" />
+                                                    <CheckBox Content="Молочник" IsChecked="{Binding SelectedOrder.MilkKettle}" />
+                                                    <CheckBox Content="Насадка (горячая вода)" IsChecked="{Binding SelectedOrder.HotWaterNozzle}" />
+                                                    <CheckBox Content="Насадка (каппучинатор)" IsChecked="{Binding SelectedOrder.CappuccinatorNozzle}" />
                                                     <WrapPanel Orientation="Horizontal">
                                                         <TextBlock>Дополнительно</TextBlock>
-                                                        <TextBox Text="{Binding SelectedOrder.OtherText}"
-                                                                 TextWrapping="Wrap" />
+                                                        <TextBox Text="{Binding SelectedOrder.OtherText}" TextWrapping="Wrap" />
                                                     </WrapPanel>
                                                 </WrapPanel>
                                             </GroupBox>
@@ -186,10 +174,11 @@
                                 </StackPanel>
 
                                 <WrapPanel Grid.Row="1" HorizontalAlignment="Right">
-                                    <!--<Button Margin="4" Command="{Binding ClearInvoice}">Очистить</Button>-->
-
-                                    <Button Padding="10" MinWidth="275"
-                                            Margin="5" Command="{Binding OpenExportFolderCommand}">
+                                    <Button
+                                        MinWidth="275"
+                                        Margin="5"
+                                        Padding="10"
+                                        Command="{Binding OpenExportFolderCommand}">
                                         Открыть папку экспорта
                                     </Button>
                                     <Button
@@ -207,7 +196,18 @@
                                         Обновить существующию выписку
                                     </Button>
                                 </WrapPanel>
+                                <WrapPanel Grid.Row="2">
+                                    <Button
+                                        MinWidth="200"
+                                        Margin="5"
+                                        Padding="5"
+                                        HorizontalAlignment="Right"
+                                        Command="{Binding DeleteOrderCommand}"
+                                        Foreground="Red">
+                                        Удалить заказ
+                                    </Button>
 
+                                </WrapPanel>
                             </StackPanel>
                         </Grid>
 
